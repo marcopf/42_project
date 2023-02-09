@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 17:59:41 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/09 19:26:26 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:18:55 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	l_attack_left(t_game *game)
 			game_over(game);
 		if (game->map[y][x] == 'E')
 			break ;
-		if (game->map[y][x] == 'C')
+		if (game->map[y][x] == 'C' || game->map[y][x] == 'U')
 			game->map[y][x] = 'U';
 		else
 			game->map[y][x] = 'A';
@@ -50,7 +50,7 @@ int	l_attack_right(t_game *game)
 			game_over(game);
 		if (game->map[y][x] == 'E')
 			break ;
-		if (game->map[y][x] == 'C')
+		if (game->map[y][x] == 'C' || game->map[y][x] == 'U')
 			game->map[y][x] = 'U';
 		else
 			game->map[y][x] = 'A';
@@ -74,7 +74,7 @@ int	l_attack_up(t_game *game)
 			game_over(game);
 		if (game->map[y][x] == 'E')
 			break ;
-		if (game->map[y][x] == 'C')
+		if (game->map[y][x] == 'C' || game->map[y][x] == 'U')
 			game->map[y][x] = 'U';
 		else
 			game->map[y][x] = 'A';
@@ -98,7 +98,7 @@ int	l_attack_down(t_game *game)
 			game_over(game);
 		if (game->map[y][x] == 'E')
 			break ;
-		if (game->map[y][x] == 'C')
+		if (game->map[y][x] == 'C' || game->map[y][x] == 'U')
 			game->map[y][x] = 'U';
 		else
 			game->map[y][x] = 'A';
@@ -125,7 +125,7 @@ void	attack_clean(t_game *game)
 				mlx_put_image_to_window(game->mlx, game->mlx_win,
 					game->imgs.floor, (j) * 61, ((i) * 61) + 30);
 			}
-			if (game->map[i][j] == 'U')
+			else if (game->map[i][j] == 'U')
 				poke_replace(game, i, j);
 			j++;
 		}

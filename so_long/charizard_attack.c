@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 14:00:37 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/09 19:24:31 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 22:25:49 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ int	attack_right(t_game *game)
 void	make_attack(t_game *game)
 {
 	int	(*functions[8])(t_game *);
+	int	n1;
 
+	n1 = rand() % 8;
 	functions[0] = &attack_right;
 	functions[1] = &attack_left;
 	functions[2] = &attack_up;
@@ -119,5 +121,6 @@ void	make_attack(t_game *game)
 	functions[6] = &l_attack_up;
 	functions[7] = &l_attack_down;
 	attack_clean(game);
-	functions[rand() % 8](game);
+	usleep(500);
+	functions[n1](game);
 }

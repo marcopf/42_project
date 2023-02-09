@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 19:36:38 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/09 14:01:48 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 21:47:05 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	move_char_up(t_game *game)
 			return (0);
 		else if (game->map[y - 1][x] == 'E' && game->done == 0)
 			return (0);
-		else if (game->map[y - 1][x] == 'E')
+		else if (game->map[y - 1][x] == 'E' || game->map[y - 1][x] == 'U')
 			return (0);
 		else if (game->map[y - 1][x] == 'P')
 			game_over(game);
@@ -55,7 +55,7 @@ int	move_char_down(t_game *game)
 			return (0);
 		else if (game->map[y + 1][x] == 'E' && game->done == 0)
 			return (0);
-		else if (game->map[y + 1][x] == 'E')
+		else if (game->map[y + 1][x] == 'E' || game->map[y + 1][x] == 'U')
 			return (0);
 		else if (game->map[y + 1][x] == 'P')
 			game_over(game);
@@ -84,7 +84,7 @@ int	move_char_left(t_game *game)
 			return (0);
 		else if (game->map[y][x - 1] == 'E' && game->done == 0)
 			return (0);
-		else if (game->map[y][x - 1] == 'E')
+		else if (game->map[y][x - 1] == 'E' || game->map[y][x - 1] == 'U')
 			return (0);
 		else if (game->map[y][x - 1] == 'P')
 			game_over(game);
@@ -113,7 +113,7 @@ int	move_char_right(t_game *game)
 			return (0);
 		else if (game->map[y][x + 1] == 'E' && game->done == 0)
 			return (0);
-		else if (game->map[y][x + 1] == 'E')
+		else if (game->map[y][x + 1] == 'E' || game->map[y][x + 1] == 'U')
 			return (0);
 		else if (game->map[y][x + 1] == 'P')
 			game_over(game);

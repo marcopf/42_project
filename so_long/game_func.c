@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:40:31 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/07 15:25:43 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:27:16 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ int	create_trgb(int t, int r, int g, int b)
 
 void	game_over(t_game *game)
 {
+	mlx_put_image_to_window(game->mlx, game->mlx_win,
+		game->imgs.e3, (game->player.x) * 61, ((game->player.y) * 61) + 30);
 	free_map(game->map);
 	mlx_destroy_window(game->mlx, game->mlx_win);
 	ft_printf("Hai perso !!! hai fatto %d mosse\n", game->player.moves);
+	sleep(4);
 	exit(0);
 }
 

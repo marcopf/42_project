@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 19:36:38 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/08 09:52:16 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:01:48 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	move_char_up(t_game *game)
 		game->map[y][x] = '0';
 		game->map[y - 1][x] = 'G';
 		mlx_put_image_to_window(game->mlx, game->mlx_win,
-			game->charizard.patrol_b, (x) * 61, ((y - 1) * 61) + 30);
+			game->charizard.c1, (x) * 61, ((y - 1) * 61) + 30);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			(x) * 61, ((y) * 61) + 30);
 		return (1);
@@ -62,7 +62,7 @@ int	move_char_down(t_game *game)
 		game->map[y][x] = '0';
 		game->map[y + 1][x] = 'G';
 		mlx_put_image_to_window(game->mlx, game->mlx_win,
-			game->charizard.patrol_a, (x) * 61, ((y + 1) * 61) + 30);
+			game->charizard.c1, (x) * 61, ((y + 1) * 61) + 30);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			(x) * 61, ((y) * 61) + 30);
 		return (1);
@@ -91,7 +91,7 @@ int	move_char_left(t_game *game)
 		game->map[y][x] = '0';
 		game->map[y][x - 1] = 'G';
 		mlx_put_image_to_window(game->mlx, game->mlx_win,
-			game->charizard.patrol_b, (x - 1) * 61, ((y) * 61) + 30);
+			game->charizard.c1, (x - 1) * 61, ((y) * 61) + 30);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			(x) * 61, ((y) * 61) + 30);
 		return (1);
@@ -120,7 +120,7 @@ int	move_char_right(t_game *game)
 		game->map[y][x] = '0';
 		game->map[y][x + 1] = 'G';
 		mlx_put_image_to_window(game->mlx, game->mlx_win,
-			game->charizard.patrol_a, (x + 1) * 61, ((y) * 61) + 30);
+			game->charizard.c1, (x + 1) * 61, ((y) * 61) + 30);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			(x) * 61, ((y) * 61) + 30);
 		return (1);
@@ -130,22 +130,8 @@ int	move_char_right(t_game *game)
 
 int	move_charizard(t_game *game)
 {
-	int	random;
-
 	if (!locate_charizard(game))
 		return (0);
-	if (game->frame != 15)
-		return (0);
-	random = rand() % 4;
 	smart_move(game);
-	smart_move(game);
-	if (random == 0)
-		move_char_right(game);
-	else if (random == 1)
-		move_char_up(game);
-	if (random == 2)
-		move_char_left(game);
-	else if (random == 3)
-		move_char_down(game);
 	return (0);
 }

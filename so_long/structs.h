@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:06:26 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/07 16:17:27 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:26:33 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 # define STRUCTS_H
 
 typedef struct e_charizard{
-	void	*patrol_a;
-	void	*patrol_b;
+	void	*c1;
+	void	*c2;
+	void	*c3;
+	void	*c4;
+	void	*c5;
+	void	*c6;
+	void	*a1;
+	void	*a2;
+	void	*a3;
+	void	*a4;
 	int		x;
 	int		y;
 }	t_char;
@@ -28,6 +36,7 @@ typedef struct s_image {
 	void	*player;
 	void	*c_door;
 	void	*patrol;
+	void	*e3;
 	int		offset_x;
 	int		offset_y;
 	int		img_width;

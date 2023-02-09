@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:44:46 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/08 11:14:25 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 19:27:03 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,15 @@ int		move_char_up(t_game *game);
 int		move_char_down(t_game *game);
 int		move_char_left(t_game *game);
 int		move_char_right(t_game *game);
-//ft_printf
+void	make_attack(t_game *game);
+void	draw_exit(t_game *game);
+void	char_animation_file(t_game *game);
+int		l_attack_left(t_game *game);
+int		l_attack_right(t_game *game);
+int		l_attack_up(t_game *game);
+int		l_attack_down(t_game *game);
+void	attack_clean(t_game *game);
+void	poke_replace(t_game *game, int i, int j);
 int		ft_printf(const char *str, ...);
 char	*ft_itoa(long n);
 int		ft_putnbr(int n);

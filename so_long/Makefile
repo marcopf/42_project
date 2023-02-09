@@ -1,7 +1,7 @@
 NAME	= so_long
 HEADER	= ${NAME:.a=.h}
 SRCS	= main.c map_parser.c map_check.c get_next_line.c get_next_line_utils.c draw_map.c player_func.c player_move.c game_func.c charizard_move.c print_moves.c \
-			ft_printf.c ft_hex.c ft_writeptr.c printf_utils.c ft_itoa.c ft_strdup.c ft_calloc.c ft_bzero.c ft_putstr.c ft_strlen.c
+			ft_printf.c ft_hex.c ft_writeptr.c printf_utils.c ft_itoa.c ft_strdup.c ft_calloc.c ft_bzero.c ft_putstr.c ft_strlen.c charizard_attack.c draw_exit.c charizard_line.c
 OBJS	= ${SRCS:.c=.o}
 BOBJS	= ${BSRCS:.c=.o}
 FLAGS	= -Wall -Werror -Wextra

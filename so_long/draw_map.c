@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 15:13:16 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/08 10:08:10 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:26:24 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	player_imgs_init(t_game *game)
 			&game->imgs.img_width, &game->imgs.img_height);
 	game->player.right = mlx_xpm_file_to_image(game->mlx, "imgs/p_right.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
-	game->charizard.patrol_a = mlx_xpm_file_to_image(game->mlx, "imgs/c0.xpm",
-			&game->imgs.img_width, &game->imgs.img_height);
-	game->charizard.patrol_b = mlx_xpm_file_to_image(game->mlx, "imgs/c1.xpm",
-			&game->imgs.img_width, &game->imgs.img_height);
+	char_animation_file(game);
 }
 
 void	img_init(t_game *game)
@@ -38,9 +35,9 @@ void	img_init(t_game *game)
 	player_imgs_init(game);
 	game->imgs.floor = mlx_xpm_file_to_image(game->mlx, "imgs/grass.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
-	game->imgs.border = mlx_xpm_file_to_image(game->mlx, "imgs/rock.xpm",
+	game->imgs.border = mlx_xpm_file_to_image(game->mlx, "imgs/tree.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
-	game->imgs.item = mlx_xpm_file_to_image(game->mlx, "imgs/premierball.xpm",
+	game->imgs.item = mlx_xpm_file_to_image(game->mlx, "imgs/po1.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
 	game->imgs.open_door = mlx_xpm_file_to_image(game->mlx, "imgs/o_door.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
@@ -48,7 +45,9 @@ void	img_init(t_game *game)
 			&game->imgs.img_width, &game->imgs.img_height);
 	game->imgs.player = mlx_xpm_file_to_image(game->mlx, "imgs/p_bottom.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
-	game->imgs.patrol = mlx_xpm_file_to_image(game->mlx, "imgs/c0.xpm",
+	game->imgs.patrol = mlx_xpm_file_to_image(game->mlx, "imgs/c1.xpm",
+			&game->imgs.img_width, &game->imgs.img_height);
+	game->imgs.e3 = mlx_xpm_file_to_image(game->mlx, "imgs/e3.xpm",
 			&game->imgs.img_width, &game->imgs.img_height);
 }
 
@@ -65,7 +64,7 @@ void	selector_2(t_game *game, char c)
 	{
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			game->imgs.offset_x, game->imgs.offset_y);
-		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.patrol,
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->charizard.c1,
 			game->imgs.offset_x, game->imgs.offset_y);
 	}
 }
@@ -79,8 +78,12 @@ void	selector(t_game *game, char c)
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
 			game->imgs.offset_x, game->imgs.offset_y);
 	else if (c == 'E')
+	{
+		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,
+			game->imgs.offset_x, game->imgs.offset_y);
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.c_door,
 			game->imgs.offset_x, game->imgs.offset_y);
+	}
 	else if (c == 'C')
 	{
 		mlx_put_image_to_window(game->mlx, game->mlx_win, game->imgs.floor,

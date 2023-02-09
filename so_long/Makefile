@@ -13,10 +13,10 @@ RM		= rm -f
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 all: ${NAME}
-	@make -C ./mlx
-	@cp ./mlx/libmlx.dylib .
 
 ${NAME}: ${OBJS}
+	@make -C ./mlx
+	@cp ./mlx/libmlx.dylib .
 	$(CC) $(OBJS) -L . -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:

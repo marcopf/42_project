@@ -6,7 +6,7 @@
 /*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 08:44:31 by marco             #+#    #+#             */
-/*   Updated: 2023/03/06 11:30:00 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:19:16 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	*timer(void *void_philo)
 		&& (philo->back->philosopher_n))
 		usleep(100);
 	if ((!philo->back->philosopher_n))
+	{
 		philo->back->is_alive = 0;
+		return (0);
+	}
 	philo_say("died", philo);
 	philo->back->is_alive = 0;
 	return (0);

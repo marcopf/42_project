@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:23:14 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/27 09:25:53 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:49:30 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 int	ft_putnbr(int n)
 {
-	int		len;
-	char	*str;
+	int sign;
 
-	str = ft_itoa(n);
-	ft_putstr(str);
-	len = ft_strlen(str);
-	free(str);
-	return (len);
+	sign = 0;
+	if (n == -2147483648)
+		return (ft_putstr("-2147483648"));
+	if (n < 0)
+	{
+		n = -n;
+		sign = 1;
+		ft_putchar('-');
+	}
+	if (n < 10)
+		return (ft_putchar(n + '0') + sign);
+	else
+		return (ft_putnbr(n / 10) + ft_putchar((n % 10) + '0') + sign);
 }
 
 void	write_u_putnbr(unsigned int n)

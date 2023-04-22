@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_n_command.c                                   :+:      :+:    :+:   */
+/*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:41:00 by marco             #+#    #+#             */
-/*   Updated: 2023/02/24 10:14:45 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/04/22 21:47:27 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "./../pipex.h"
 
 char	**get_line(char **envp)
 {
@@ -52,19 +52,19 @@ char	*path_checker(t_pipex *pipex)
 	if (flag)
 		return (pipex->paths[i]);
 	else
-		ft_printf("%s: comando non trovato\n",
+		fd_printf(2, "%s: command not found\n",
 			ft_strrchr(pipex->paths[0], '/') + 1);
 	return (0);
 }
 
-char	**path_n_command(t_pipex *pipex, char **argv, int el, char **envp)
+char	**get_cmd(t_pipex *pipex, char **argv, int el, char **envp)
 {
 	char	*temp;
 	char	**command;
 
 	pipex->paths = get_line(envp);
 	pipex->cmd_i = -1;
-	command = ft_split(argv[el], ' ');
+	command = final_parser(argv[el]);
 	while (pipex->paths[++pipex->cmd_i])
 	{
 		temp = ft_strdup(pipex->paths[pipex->cmd_i]);
@@ -82,24 +82,6 @@ char	**path_n_command(t_pipex *pipex, char **argv, int el, char **envp)
 		command[0] = 0;
 	else
 		command[0] = ft_strdup(temp);
-	ft_free(pipex->paths);
+	ft_free_mat((void ***)&pipex->paths);
 	return (command);
-}
-
-void	command_init(t_pipex *pipex, char **argv, char **envp)
-{
-	protect_space(argv[2]);
-	protect_space(argv[3]);
-	pipex->infile_fd = open(argv[1], O_RDONLY);
-	if (pipex->infile_fd <= 0)
-	{
-		ft_printf("%s: %s: file o directory inesistente\n", argv[1], argv[2]);
-		exit(1);
-	}
-	pipex->outfile_fd = open(argv[4], O_TRUNC | O_CREAT | O_RDWR);
-	pipex->cmd1 = path_n_command(pipex, argv, 2, envp);
-	pipex->cmd2 = path_n_command(pipex, argv, 3, envp);
-	convert(pipex->cmd1);
-	convert(pipex->cmd2);
-	r_trim(pipex);
 }

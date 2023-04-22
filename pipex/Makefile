@@ -1,6 +1,6 @@
 NAME	= pipex
 HEADER	= ${NAME:.a=.h}
-SRCS	=	pipex.c free.c path_n_command.c
+SRCS	= $(wildcard *.c) $(wildcard src/*.c)
 OBJS	= ${SRCS:.c=.o}
 BOBJS	= ${BSRCS:.c=.o}
 FLAGS	= -Wall -Werror -Wextra

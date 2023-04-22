@@ -3,121 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 09:31:08 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/24 10:25:02 by mpaterno         ###   ########.fr       */
+/*   Created: 2023/04/22 08:58:42 by marco             #+#    #+#             */
+/*   Updated: 2023/04/22 22:14:50 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	sub_proc(t_pipex *pipex)
+void	parent(t_pipex *pipex, int *fd, int id)
 {
-	pipex->pid1 = fork();
-	if (pipex->pid1 < 0)
+	if (id - (pipex->val - 1) != pipex->n_cmd - 1)
+	{
+		close(pipex->old_pipe);
+		pipex->old_pipe = fd[0];
+		close(fd[1]);
+	}
+	else
+	{
+		close(pipex->old_pipe);
+		while (waitpid(-1, 0, 0) != -1)
+			;
+	}
+}
+
+int	child_proc(t_pipex *pipex, char **argv, int id, char **envp)
+{
+	int		pid;
+	int		fd[2];
+	char	**cmd;
+
+	if (pipe(fd) == -1)
 		return (-1);
-	if (pipex->pid1 == 0)
+	pid = fork();
+	if (!pid)
 	{
-		close(pipex->pipe_fd[0]);
-		dup2(pipex->pipe_fd[1], 1);
-		dup2(pipex->infile_fd, 0);
-		execve(pipex->cmd1[0], pipex->cmd1, NULL);
+		if (id - (pipex->val - 1) != pipex->n_cmd - 1)
+			dup2(fd[1], 1);
+		else
+			dup2(pipex->outfile_fd, 1);
+		close(fd[1]);
+		close(fd[0]);
+		dup2(pipex->old_pipe, 0);
+		close(pipex->old_pipe);
+		cmd = get_cmd(pipex, argv, id, envp);
+		execve(cmd[0], cmd, envp);
 	}
-	pipex->pid2 = fork();
-	if (pipex->pid2 < 0)
-		return (-1);
-	if (pipex->pid2 == 0)
-	{
-		dup2(pipex->pipe_fd[0], 0);
-		dup2(pipex->outfile_fd, 1);
-		close(pipex->pipe_fd[1]);
-		execve(pipex->cmd2[0], pipex->cmd2, NULL);
-	}
-	return (1);
-}
-
-void	protect_space(char *strs)
-{
-	char	*str;
-	int		i;
-
-	str = ft_strchr(strs, '\'');
-	if (str)
-	{
-		i += 1;
-		while (str[++i] && str[i] != '\'')
-			if (str[i] == ' ')
-				str[i] = '#';
-	}
-}
-
-void	convert(char **strs)
-{
-	char	*str;
-	int		i;
-	int		j;
-
-	i = -1;
-	while (strs[++i])
-	{
-		if (ft_strchr(strs[i], '#'))
-		{
-			str = ft_strchr(strs[i], '#');
-			j = -1;
-			while (str[++j] && str[j] != '\'')
-			{
-				if (str[j] == '#')
-					str[j] = ' ';
-			}
-		}
-	}
-}
-
-void	r_trim(t_pipex *pipex)
-{
-	int		i;
-	char	*temp;
-
-	i = -1;
-	while (pipex->cmd1[++i])
-	{
-		if (ft_strchr(pipex->cmd1[i], '\''))
-		{
-			temp = ft_strtrim(pipex->cmd1[i], "\'");
-			free(pipex->cmd1[i]);
-			pipex->cmd1[i] = ft_strdup(temp);
-			free(temp);
-		}
-	}
-	i = -1;
-	while (pipex->cmd2[++i])
-	{
-		if (ft_strchr(pipex->cmd2[i], '\''))
-		{
-			temp = ft_strtrim(pipex->cmd2[i], "\'");
-			free(pipex->cmd2[i]);
-			pipex->cmd2[i] = ft_strdup(temp);
-			free(temp);
-		}
-	}	
+	else
+		parent(pipex, fd, id);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
-	char	*temp;
+	int		i;
 
 	if (argc < 5)
-		return (0);
-	if (pipe(pipex.pipe_fd) == -1)
-		return (1);
-	command_init(&pipex, argv, envp);
-	if (sub_proc(&pipex) < 0)
-		return (1);
-	close(pipex.pipe_fd[0]);
-	close(pipex.pipe_fd[1]);
-	waitpid(pipex.pid1, NULL, 0);
-	waitpid(pipex.pid2, NULL, 0);
-	free_cmd_n_file(&pipex);
+		return (fd_printf(2, "to few arguments\n"));
+	pipex.val = 3;
+	pipex.out_mode = 0;
+	pipex_init(&pipex, argv, argc);
+	i = -1;
+	while (++i < pipex.n_cmd)
+		child_proc(&pipex, argv, i + pipex.val - 1, envp);
+	unlink(".here_doc");
+	return (0);
 }

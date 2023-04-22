@@ -30,6 +30,7 @@ clean:
 
 fclean: clean
 	${RM} ${NAME}
+	${RM} checker_mac
 
 re: fclean all
 

@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 11:41:48 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/20 12:13:34 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/04/21 23:03:22 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "unistd.h"
-# include "stdlib.h"
-# include "stdarg.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdarg.h>
 
 typedef struct e_stack{
 	int	*list;
@@ -37,8 +38,16 @@ typedef struct e_stacks{
 	t_stack	stack_b;
 	t_lis	lis;
 	int		list_len;
+	int		average;
 }	t_stacks;
 
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *str);
+char	*ft_strjoin(const char *s1, const char *s2);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_strdup(const char *str);
+char	*get_next_line(int fd);
+void	avg(t_stacks *stacks);
 void	fill_stack(t_stacks *stacks, char *str);
 void	sa(t_stacks *stacks, int flag);
 void	sb(t_stacks *stacks, int flag);

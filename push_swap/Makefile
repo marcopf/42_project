@@ -1,8 +1,9 @@
 NAME	= push_swap
 HEADER	= ${NAME:.a=.h}
-SRCS	= all_possible_move/greedy.c all_possible_move/move_calculator.c stacks/fill_stack.c \
-			moves/pa_pb.c moves/ra_rb.c moves/rra_rrb.c main.c mini_libft/ft_split.c mini_libft/ft_atoi.c \
-			check/check_duplicate.c check/str_check.c moves/sa_sb.c all_possible_move/small_sort.c
+SRCS	= sorting/greedy.c sorting/move_calculator.c stacks/fill_stack.c \
+			stacks/pa_pb.c stacks/ra_rb.c stacks/rra_rrb.c mini_libft/ft_split.c mini_libft/ft_atoi.c \
+			input_control/check_duplicate.c input_control/str_check.c stacks/sa_sb.c sorting/small_sort.c \
+			checker/gnl/get_next_line_utils.c checker/gnl/get_next_line.c
 OBJS	= ${SRCS:.c=.o}
 BOBJS	= ${BSRCS:.c=.o}
 FLAGS	= -Wall -Werror -Wextra
@@ -11,15 +12,21 @@ CC		= gcc
 RM		= rm -f
 
 .o:.c
-	$(CC) -Wall -Wextra -Werror -c $< -o $@
+	$(CC) -Wall -Wextra -Werror main.c -c $< -o $@
 
 all: ${NAME}
 
 ${NAME}: ${OBJS}
-	$(CC) $(OBJS) -o $(NAME)
+	$(CC) $(OBJS) main.c -o $(NAME)
+
+bonus: ${OBJS}
+	$(CC) $(OBJS) main.c -o $(NAME)
+	$(CC) $(OBJS) checker/checker.c -o checker_mac
 
 clean:
 	${RM} ${OBJS}
+	${RM} checker/checker.o
+	${RM} main.o
 
 fclean: clean
 	${RM} ${NAME}

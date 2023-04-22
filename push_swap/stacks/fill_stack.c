@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:37:39 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/20 11:44:20 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/04/21 22:18:19 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,11 @@ void	fill_stack(t_stacks *stacks, char *str)
 void	push_all_b(t_stacks *stacks)
 {
 	while (stacks->stack_a.placed_number > 3)
+	{
 		pb(stacks, 0, 1);
+		if (stacks->stack_b.list[0] < stacks->average)
+			rb(stacks, 1);
+	}
 	small_sort_for_medium(stacks);
 	ascend(stacks);
 }

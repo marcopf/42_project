@@ -6,7 +6,7 @@
 /*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 09:43:02 by marco             #+#    #+#             */
-/*   Updated: 2023/04/24 17:58:33 by marco            ###   ########.fr       */
+/*   Updated: 2023/04/25 22:58:43 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ void		philo_say(t_env *env, int mode, int id);
 void		my_sleep(int ms);
 int			env_init(t_env *env, int argc, char **argv);
 void		make_philos(t_env *env);
-
 
 #endif

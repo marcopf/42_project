@@ -6,7 +6,7 @@
 /*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:08:12 by marco             #+#    #+#             */
-/*   Updated: 2023/04/24 21:33:47 by marco            ###   ########.fr       */
+/*   Updated: 2023/04/25 23:05:28 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ typedef struct s_env
 	t_philo			*philo;
 }	t_env;
 
+double	get_ts2(struct timeval ts);
+void	my_sleep(int ms);
 void	philo_init(t_env *env, int id);
 int		env_init(t_env *env, int argc, char **argv);
+void	*philo_routine(void	*temp);
 
 #endif

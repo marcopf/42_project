@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 19:08:12 by marco             #+#    #+#             */
-/*   Updated: 2023/04/24 21:33:47 by marco            ###   ########.fr       */
+/*   Created: 2023/04/24 09:43:02 by marco             #+#    #+#             */
+/*   Updated: 2023/04/24 17:58:33 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -25,24 +25,22 @@
 # include <sys/stat.h> 
 # include <pthread.h>
 
-struct	s_env;
+// typedef struct s_philo
+// {
+// 	int		id;
+// 	sem_t	fork;
+// 	t_env	*back;
+// }	t_philo;
 
-typedef struct s_philo
+typedef struct env
 {
-	int				id;
-	int				fork_index;
-	int				meal_count;
-	int				is_alive;
-	struct timeval	ts;
+	sem_t			*sem;
+	struct timeval	time;
 	double			origin_time;
-	pthread_t		philo_t;
-	pthread_t		clock;
-	pthread_mutex_t	fork;
-	struct s_env	*back;
-}	t_philo;
-
-typedef struct s_env
-{
+	int				is_alive;
+	double			death_init;
+	int				id;
+	int				meal_count;
 	int				meal_needed;
 	int				counter;
 	int				error;
@@ -50,12 +48,12 @@ typedef struct s_env
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_to_die;
-	double			origin_time;
-	struct timeval	ts;
-	t_philo			*philo;
 }	t_env;
 
-void	philo_init(t_env *env, int id);
-int		env_init(t_env *env, int argc, char **argv);
+void		philo_say(t_env *env, int mode, int id);
+void		my_sleep(int ms);
+int			env_init(t_env *env, int argc, char **argv);
+void		make_philos(t_env *env);
+
 
 #endif

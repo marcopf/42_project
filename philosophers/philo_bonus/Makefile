@@ -1,4 +1,4 @@
-NAME	= philo
+NAME	= philo_bonus
 HEADER	= ${NAME:.a=.h}
 SRCS	=	${wildcard *.c}
 OBJS	= ${SRCS:.c=.o}

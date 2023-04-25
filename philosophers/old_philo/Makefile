@@ -1,8 +1,8 @@
 NAME	= philo
 HEADER	= ${NAME:.a=.h}
-SRCS	=	${wildcard *.c}
+SRCS	=	philosophers.c mini_libft/ft_atoi.c mini_libft/ft_itoa.c philosopher_life.c thread_func.c check.c
 OBJS	= ${SRCS:.c=.o}
-OBJS_B	= ${SRCS_B:.c=.o}
+BOBJS	= ${BSRCS:.c=.o}
 FLAGS	= -Wall -Werror -Wextra
 OPTIONS	= -c
 CC		= gcc
@@ -11,7 +11,7 @@ RM		= rm -f
 .o:.c
 	$(CC) -Wall -Wextra -Werror -c $< -o $@
 
-all: ${NAME} ${NAME_BONUS}
+all: ${NAME}
 
 ${NAME}: ${OBJS}
 	$(CC) $(OBJS) -pthread -o $(NAME)

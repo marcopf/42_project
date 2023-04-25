@@ -1,7 +1,7 @@
 NAME	= philo
 NAME_BONUS	= philo_bonus
 HEADER	= ${NAME:.a=.h}
-SRCS	=	${wildcard philo_m2/*.c}
+SRCS	=	${wildcard philo_m/*.c}
 SRCS_B	=	${wildcard philo_b/*.c}
 OBJS	= ${SRCS:.c=.o}
 OBJS_B	= ${SRCS_B:.c=.o}

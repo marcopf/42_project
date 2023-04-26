@@ -6,7 +6,7 @@
 /*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:37:39 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/04/21 22:18:19 by marco            ###   ########.fr       */
+/*   Updated: 2023/04/26 09:29:18 by mpaterno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fill_stack_double(t_stacks *stacks, char **strs, int argc)
 	int		i;
 	long	val;
 
-	if (!double_str_check(strs, stacks, argc))
+	if (!double_str_check(strs, argc))
 	{
 		write(2, "Error\n", 6);
 		exit(0);
@@ -53,7 +53,7 @@ void	fill_stack_double(t_stacks *stacks, char **strs, int argc)
 	while (++i < argc)
 	{
 		val = ft_atoi(strs[i]);
-		if (val > 2147483647 || val < -2147483648)
+		if (val > 2147483647 || val < -2147483648 || ft_strlen(strs[i]) == 0)
 			finish(stacks);
 		stacks->stack_a.list[i - 1] = ft_atoi(strs[i]);
 	}
@@ -76,7 +76,7 @@ void	fill_stack(t_stacks *stacks, char *str)
 	long	val;
 
 	i = 0;
-	if (!str_check_no_e(str, stacks))
+	if (!str_check_no_e(str))
 	{
 		write(2, "Error\n", 6);
 		exit(0);
@@ -103,7 +103,7 @@ void	push_all_b(t_stacks *stacks)
 	while (stacks->stack_a.placed_number > 3)
 	{
 		pb(stacks, 0, 1);
-		if (stacks->stack_b.list[0] < stacks->average)
+		if (stacks->stack_b.list[0] < stacks->average && stacks->stack_a.placed_number > 5)
 			rb(stacks, 1);
 	}
 	small_sort_for_medium(stacks);

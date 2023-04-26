@@ -16,7 +16,7 @@ void	sa(t_stacks *stacks, int flag)
 {
 	int	temp;
 
-	if (stacks->stack_a.placed_number > 2)
+	if (stacks->stack_a.placed_number >= 2)
 	{
 		temp = stacks->stack_a.list[0];
 		stacks->stack_a.list[0] = stacks->stack_a.list[1];
@@ -30,7 +30,7 @@ void	sb(t_stacks *stacks, int flag)
 {
 	int	temp;
 
-	if (stacks->stack_b.placed_number > 2)
+	if (stacks->stack_b.placed_number >= 2)
 	{
 		temp = stacks->stack_b.list[0];
 		stacks->stack_b.list[0] = stacks->stack_b.list[1];

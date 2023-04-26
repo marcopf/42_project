@@ -6,7 +6,7 @@
 /*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 08:58:42 by marco             #+#    #+#             */
-/*   Updated: 2023/04/22 22:14:50 by marco            ###   ########.fr       */
+/*   Updated: 2023/04/26 15:42:53 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int	child_proc(t_pipex *pipex, char **argv, int id, char **envp)
 		dup2(pipex->old_pipe, 0);
 		close(pipex->old_pipe);
 		cmd = get_cmd(pipex, argv, id, envp);
-		execve(cmd[0], cmd, envp);
+		if (execve(cmd[0], cmd, envp) == -1)
+		{
+			ft_free_mat((void ***) &cmd);
+			exit(1);
+		}
 	}
 	else
 		parent(pipex, fd, id);

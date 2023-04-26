@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpaterno <mpaterno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marco <marco@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:23:14 by mpaterno          #+#    #+#             */
-/*   Updated: 2023/02/24 09:23:51 by mpaterno         ###   ########.fr       */
+/*   Updated: 2023/04/26 15:33:06 by marco            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ void	write_u_putnbr(unsigned int n)
 	unsigned int		temp;
 	char				c;
 
-	if (n < 0)
-	{
-		n = -n;
-		write(1, "-", 1);
-	}
 	if (n <= 9)
 	{
 		c = n + '0';

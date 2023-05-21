@@ -11,6 +11,11 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	n = atoi(argv[1]);
+	if (n < 0)
+	{
+		std::cout << "bad argument" << std::endl;
+		return (0);	
+	}
 	if (n == 0)
 	{
 		std::cout << "no zombie in horde" << std::endl;

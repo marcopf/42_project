@@ -11,7 +11,7 @@ Zombie::Zombie(void)
 
 Zombie::~Zombie()
 {
-	std::cout << this->_name << std::endl;
+	std::cout << "Zombie " << this->_name << " has been smashed!" << std::endl;
 }
 
 void	Zombie::announce(void)

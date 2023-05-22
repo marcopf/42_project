@@ -1,19 +1,23 @@
 #ifndef POINT_HPP
 # define POINT_HPP
 
-#include "Fixed.hpp"
+# include "Fixed.hpp"
 
 class Point
 {
-private:
-public:
-	Fixed	x;
-	Fixed	y;
-	void	operator=(Point& cpy);
-	Point(Fixed x, Fixed y);
-	Point(Point& cpy);
-	Point(void);
-	~Point();
+	public:
+		Point(void);
+		Point(Point const &other);
+		Point(Fixed const x, Fixed const y);
+		~Point(void);
+
+		Point	&operator=(Point const &other);
+
+		Fixed const &getX(void) const;
+		Fixed const &getY(void) const;
+	private:
+		Fixed const	_x;
+		Fixed const	_y;
 };
 
 #endif

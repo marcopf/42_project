@@ -1,208 +1,193 @@
 #include "Fixed.hpp"
 
-Fixed::Fixed(Fixed &copy)
+int		power(int val, int exp)
 {
-	this->val = copy.getRawBits();
+	int		i = -1;
+	int		res = 1;
+	while (++i < exp)
+		res *= val;
+	return (res);
 }
 
-Fixed::Fixed(const Fixed &copy)
-{
-	this->val = copy.getRawBits();
-}
-
-Fixed::Fixed(void)
-{
-	this->val = 0;
-}
-
-Fixed::Fixed(const int value)
-{
-	int	fix;
-
-	fix = value * 256;
-	this->val = fix;
-}
-
-Fixed::Fixed(const float value)
-{
-	int	fix;
-
-	fix = roundf(value * pow(2, this->lit));
-	this->val = fix;
-}
-
-Fixed::~Fixed()
+Fixed::Fixed(void): val(0)
 {
 }
 
-void Fixed::operator=(Fixed& copy)
+Fixed::Fixed(int fixed)
 {
-	this->val = copy.getRawBits();
+	this->val = fixed << this->lit;
 }
 
-void Fixed::operator=(const Fixed& copy)
+Fixed::Fixed(float fixed)
 {
-	this->val = copy.getRawBits();
+	int pow = power(2, this->lit);
+
+	this->val = roundf(fixed * pow);
+}
+Fixed::Fixed(Fixed const & src)
+{
+	*this = src;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& fix)
+Fixed::~Fixed(void)
 {
-	os << fix.toFloat();
-	return (os);
 }
 
-int	Fixed::getRawBits(void)const
+Fixed &Fixed::operator=(Fixed const &other)
 {
-	return (val);
+	this->val = other.val;
+	return *this;
 }
 
-void	Fixed::setRawBits(int val)
+int	Fixed::getRawBits(void) const
 {
-	this->val = val;
+	return (this->val);
 }
 
-int	Fixed::toInt(void)const
+void	Fixed::setRawBits(const int raw)
 {
-	return (round(this->val / pow(2, this->lit)));
+	this->val = raw;
 }
 
-float	Fixed::toFloat(void)const
+int	Fixed::toInt( void ) const
 {
-	return ((float)this->val / (float)pow(2, this->lit));
+	return (this->val >> this->lit);
 }
 
-//operazioni
-
-Fixed	Fixed::operator+(const Fixed& toAdd)
+float	Fixed::toFloat( void ) const
 {
-	Fixed	toRet;
+	int		pow = power(2, this->lit);
+	float	result = (float)this->val / pow;
 
-	toRet.setRawBits(roundf((toAdd.toFloat() + this->toFloat()) * (pow(2, this->lit))));
-	return (toRet);
+	return (result);
 }
 
-Fixed	Fixed::operator-(const Fixed& toAdd)
+std::ostream &operator<<(std::ostream &stream, Fixed const &instance)
 {
-	Fixed	toRet;
-
-	toRet.setRawBits(roundf((toAdd.toFloat() - this->toFloat()) * (pow(2, this->lit))));
-	return (toRet);
-}
-
-Fixed	Fixed::operator/(const Fixed& toAdd)
-{
-	Fixed	toRet;
-
-	toRet.setRawBits(roundf((toAdd.toFloat() / this->toFloat()) * (pow(2, this->lit))));
-	return (toRet);
-}
-
-Fixed	Fixed::operator*(const Fixed& toAdd)
-{
-	Fixed	toRet;
-
-	toRet.setRawBits(roundf((toAdd.toFloat() * this->toFloat()) * (pow(2, this->lit))));
-	return (toRet);
+	stream << instance.toFloat();
+	return (stream);
 }
 
 //comparazioni
 
-bool	Fixed::operator>(const Fixed& comp)
+bool	Fixed::operator>(const Fixed &other) const
 {
-	if (this->getRawBits() > comp.getRawBits())
-		return (true);
-	return (false);
+	return (this->getRawBits() > other.getRawBits());
 }
 
-bool	Fixed::operator<(const Fixed& comp)
+bool	Fixed::operator<(const Fixed &other) const
 {
-	if (this->getRawBits() < comp.getRawBits())
-		return (true);
-	return (false);
+	return (other > *this);
 }
 
-bool	Fixed::operator>=(const Fixed& comp)
+bool	Fixed::operator>=(const Fixed &other) const
 {
-	if (this->getRawBits() >= comp.getRawBits())
-		return (true);
-	return (false);
+	return (!(*this < other));
 }
 
-bool	Fixed::operator<=(const Fixed& comp)
+bool	Fixed::operator<=(const Fixed &other) const
 {
-	if (this->getRawBits() <= comp.getRawBits())
-		return (true);
-	return (false);
+	return (!(*this > other));
 }
 
-bool	Fixed::operator==(const Fixed& comp)
+bool	Fixed::operator==(const Fixed &other) const
 {
-	if (this->getRawBits() == comp.getRawBits())
-		return (true);
-	return (false);
+	return (other.getRawBits() == this->getRawBits());
 }
 
-bool	Fixed::operator!=(const Fixed& comp)
+bool	Fixed::operator!=(const Fixed &other) const
 {
-	if (this->getRawBits() != comp.getRawBits())
-		return (true);
-	return (false);
+	return (!(other == *this));
+}
+
+//operazioni
+
+Fixed	Fixed::operator+(const Fixed &other) const
+{
+	Fixed	result;
+
+	result.setRawBits(this->getRawBits() + other.getRawBits());
+	return (result);
+}
+
+Fixed	Fixed::operator-(const Fixed &other) const
+{
+	Fixed	result;
+
+	result.setRawBits(this->getRawBits() - other.getRawBits());
+	return (result);
+}
+
+Fixed	Fixed::operator*(const Fixed &other) const
+{
+	Fixed	result(this->toFloat() * other.toFloat());
+
+	return (result);
+}
+
+Fixed	Fixed::operator/(const Fixed &other) const
+{
+	Fixed	result(this->toFloat() / other.toFloat());
+
+	return (result);
 }
 
 //post/pre fix operator
 
 Fixed& Fixed::operator++(void)
 {
-	++this->val;
-	return (*this);
-}
-
-Fixed& Fixed::operator--(void)
-{
-	--this->val;
-	return (*this);
-}
-
-Fixed Fixed::operator++(int)
-{
-	Fixed temp = *this;
 	this->val++;
-	return (temp);
+	return (*this);
 }
 
-Fixed Fixed::operator--(int)
+Fixed	&Fixed::operator--(void)
 {
-	Fixed temp = *this;
 	this->val--;
-	return (temp);
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed	old(*this);
+
+	++(*this);
+	return (old);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed	old(*this);
+
+	--(*this);
+	return (old);
 }
 
 //max min func
 
-Fixed&	Fixed::min(Fixed& a, Fixed& b)
+Fixed		&Fixed::min(Fixed &first, Fixed &other)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	if (first < other)
+		return (first);
+	return (other);
 }
 
-Fixed&	Fixed::max(Fixed& a, Fixed& b)
+const Fixed		&Fixed::min(const Fixed &first, const Fixed &other)
 {
-	if (a < b)
-		return (b);
-	return (a);
+	if (first < other)
+		return (first);
+	return (other);
 }
 
-const Fixed&	Fixed::min(const Fixed& a, const Fixed& b)
+Fixed		&Fixed::max(Fixed &first, Fixed &other)
 {
-	if ((Fixed)a < b)
-		return (a);
-	return (b);
+	if (first > other)
+		return (first);
+	return (other);
 }
 
-const Fixed&	Fixed::max(const Fixed& a, const Fixed& b)
+const Fixed		&Fixed::max(const Fixed &first, const Fixed &other)
 {
-	if ((Fixed)a < b)
-		return (b);
-	return (a);
+	if (first > other)
+		return (first);
+	return (other);
 }

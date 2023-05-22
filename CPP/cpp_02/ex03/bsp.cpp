@@ -1,21 +1,13 @@
 #include "Point.hpp"
+#include "Fixed.hpp"
 
-float sign (Point p1, Point p2, Point p3)
+bool	bsp(Point const a, Point const b, Point const c, Point const point)
 {
-    return ((p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y)).toFloat();
-}
+	bool	sign[3];
 
-bool PointInTriangle (Point pt, Point v1, Point v2, Point v3)
-{
-    float d1, d2, d3;
-    bool has_neg, has_pos;
+	sign[0] = ((a.getX() - point.getX()) * (b.getY() - a.getY()) - (b.getX() - a.getX()) * (a.getY() - point.getY())) > 0;
+	sign[1] = ((b.getX() - point.getX()) * (c.getY() - b.getY()) - (c.getX() - b.getX()) * (b.getY() - point.getY())) > 0;
+	sign[2] = ((c.getX() - point.getX()) * (a.getY() - c.getY()) - (a.getX() - c.getX()) * (c.getY() - point.getY())) > 0;
 
-    d1 = sign(pt, v1, v2);
-    d2 = sign(pt, v2, v3);
-    d3 = sign(pt, v3, v1);
-
-    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
-    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
-
-    return !(has_neg && has_pos);
+	return sign[0] == sign[1] && sign[1] == sign[2];
 }

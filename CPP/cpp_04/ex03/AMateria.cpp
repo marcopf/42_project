@@ -1,11 +1,17 @@
 #include "AMateria.hpp"
 
-AMateria::AMateria(const std::string &type): _type(type)
+AMateria::AMateria(std::string const &type)
 {
-	std::cout << "AMateria Constructor\n";
+	std::cout << "AMateria constructed\n";
+	this->type = type;
 }
 
-const std::string	&AMateria::getType(void) const
+std::string const &AMateria::getType(void)const
 {
-	return this->_type;
+	return (this->type);
+}
+
+
+AMateria::~AMateria()
+{
 }

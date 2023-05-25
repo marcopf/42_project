@@ -2,42 +2,42 @@
 
 Dog::Dog(void)
 {
-	this->type = "Dog";
-	this->brain = new Brain();
-	std::cout << "Default Dog\n";
+	this->_type = "Dog";
+	std::cout << "dog is born!\n";
+	this->_brain = new Brain();
 }
 
-Dog::Dog(Dog const &src)
+Dog::Dog(const Dog& other)
 {
-	std::cout << "Copy Dog\n";
-	*this = src;
+	std::cout << "Dog is being copied!\n";
+	*this = other;
 }
 
-Dog::~Dog(void)
+Dog::~Dog()
 {
-	delete this->brain;
-	std::cout << "Destructor Dog\n";
+	std::cout << "Dog " << this->_type << " is died :(\n";
+	delete this->_brain;
 }
 
-Dog	&Dog::operator=(Dog const &other)
+void		Dog::makeSound(void)const
 {
-	Brain *tmp;
-
-	std::cout << "Assignement operator\n";
-	this->type = other.getType();
-	tmp = other.getBrain();
-	this->brain = new Brain();
-	for (int i = 0; i < 100; i++)
-		this->brain->ideas[i] = other.brain->ideas[i];
-	return *this;
+	std::cout << "WOFF WOFF!!\n";
 }
 
-void	Dog::makeSound(void) const
+const std::string	&Dog::getType(void) const
 {
-	std::cout << "Wouf\n";
+	return (this->_type);
 }
 
-Brain	*Dog::getBrain(void) const
+Dog	&Dog::operator=(const Dog &other)
 {
-	return (this->brain);
+	std::cout << "a dog is being copy assigned\n";
+	this->type = other.type;
+	this->_brain = new Brain();
+	return (*this);
+}
+
+Brain	*Dog::getBrain()const
+{
+	return (this->_brain);
 }

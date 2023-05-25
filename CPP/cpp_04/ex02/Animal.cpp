@@ -1,16 +1,5 @@
 #include "Animal.hpp"
 
-Animal::Animal(void): type("")
-{
-	std::cout << "Default Animal\n";
-}
-
-Animal::Animal(Animal const & src)
-{
-	std::cout << "Copy Animal\n";
-	*this = src;
-}
-
 Animal::~Animal(void)
 {
 	std::cout << "Destructor Animal\n";

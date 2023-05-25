@@ -1,22 +1,27 @@
-NAME	=  test
-CC	= clang++
-FLAGS	= -std=c++98 -Wall -Wextra -Werror
-RM	= rm -f
-SRC	= $(wildcard *.cpp)
-OBJ	= $(SRC:.cpp=.o)
+NAME	= claptrap
+HEADER	= ${NAME:.a=.h}
+SRCS	=	$(wildcard *.cpp)
+OBJS	= ${SRCS:.cpp=.o}
+BOBJS	= ${BSRCS:.cpp=.o}
+FLAGS	= -Wall -Werror -Wextra
+OPTIONS	= -c
+CC		= g++
+RM		= rm -f
 
-all: $(NAME)
+.o:.cpp
+	$(CC) $(FLAGS) -std=c++98 -c $< -o $@
 
-%.o : %.cpp
-	$(CC) $(FLAGS) -c $<
+all: ${NAME}
 
-$(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $@
+${NAME}: ${OBJS}
+	$(CC) $(OBJS) $(FLAGS) -std=c++98 -o $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	${RM} ${OBJS}
 
 fclean: clean
-	$(RM) $(NAME)
+	${RM} ${NAME}
 
 re: fclean all
+
+.PHONY: all clean fclean re libft

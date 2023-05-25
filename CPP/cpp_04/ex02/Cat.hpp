@@ -1,20 +1,23 @@
 #ifndef CAT_HPP
 # define CAT_HPP
 
-# include "AAnimal.hpp"
-# include "Brain.hpp"
+#include "Animal.hpp"
+#include "Brain.hpp"
 
-class Cat : public AAnimal
+
+class Cat : public Animal
 {
+protected:
+	std::string	_type;
+	Brain		*_brain;
 public:
+	virtual void		makeSound(void)const;
 	Cat(void);
-	Cat(const Cat &src);
+	Cat(const Cat& other);
+	virtual Brain	*getBrain()const;
+	Cat	&operator=(const Cat &other);
 	~Cat(void);
-	Cat				&operator=(Cat const &other);
-	virtual void	makeSound(void) const;
-	Brain	*getBrain(void) const;
-private:
-	Brain	*brain;
+	virtual const std::string	&getType(void) const;
 };
 
 #endif

@@ -1,91 +1,78 @@
 #include "Character.hpp"
 
-Character::Character(void): _name(""), _number_equipped(0)
+Character::Character(void)
 {
-	for (int i = 0; i < Character::_inventory_size; i++)
-		this->_inventory[i] = NULL;
-	std::cout << "Default Character\n";
+	std::cout << "new character is setted\n";
+	for (int i = 0; i < 4; i++)
+		this->inventory[i] = NULL;
+	this->name = "";
 }
 
-Character::Character(const std::string &name)
+Character::Character(std::string const &name)
 {
+	std::cout << "new character is setted\n";
 	*this = Character();
-	this->_name = name;
-	std::cout << "Name Character\n";
-	return;
+	this->name = name;
+	return ;
 }
 
-Character::Character(Character const &src)
+Character::Character(const Character &other)
 {
-	std::cout << "Copy Character\n";
-	*this = src;
+	std::cout << "new character is being copied\n";
+	*this = other;
 }
 
-Character::~Character(void)
+Character::~Character()
 {
-	std::cout << "Destructor Character\n";
-}
-
-Character &	Character::operator=(Character const &other)
-{
-	this->_number_equipped = 0;
-	for (int i = 0; i < Character::_inventory_size; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (this->_inventory[i])
-			delete this->_inventory[i];
-		this->_inventory[i] = other._inventory[i];
-		if (other._inventory[i])
-			this->_number_equipped++;
+		if (this->inventory[i] != 0)
+			delete this->inventory[i];
 	}
-	this->_name = other.getName();
-	std::cout << "Assignement Character\n";
-	return *this;
+	std::cout << "character decostructor\n";
+}
+
+const Character &Character::operator=(const Character &other)
+{
+	std::cout << "new character is being copied with assignment operator\n";
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->inventory[i] != 0)
+			delete this->inventory[i];
+		this->inventory[i] = other.inventory[i];
+	}
+	this->name = other.name;
+	return (*this);
+}
+
+void Character::equip(AMateria* m)
+{
+	std::cout << m->getType() << " materia equiped\n";
+	for (int i = 0; i < 4; i++)
+	{
+		if (this->inventory[i] == NULL)
+		{
+			this->inventory[i] = m;
+			break ;
+		}
+	}
+}
+
+void Character::unequip(int idx)
+{
+	if (this->inventory[idx])
+	{
+		this->inventory[idx] = NULL;
+	}
+}
+
+void Character::use(int idx, ICharacter& target)
+{
+		this->inventory[idx]->use(target);
+	unequip(idx);
 }
 
 std::string const	&Character::getName() const
 {
-	return (this->_name);
-}
-
-void	Character::equip(AMateria* m)
-{
-	if (this->_number_equipped < Character::_inventory_size)
-	{
-		this->_inventory[this->_number_equipped] = m;
-		this->_number_equipped++;
-		std::cout << "Equipped a " << m->getType() << std::endl;
-	}
-	else
-		std::cout << "Couldn't equip a " << m->getType() << ", no more space"
-			<< std::endl;
-}
-
-void	Character::unequip(int idx)
-{
-	int i;
-
-	i = idx + 1;
-	while (i < Character::_inventory_size && this->_inventory[i])
-	{
-		this->_inventory[i - 1] = this->_inventory[i];
-		i++;
-	}
-	this->_inventory[i] = NULL;
-}
-
-void	Character::use(int idx, ICharacter& target)
-{
-	this->_inventory[idx]->use(target);
-	this->unequip(idx);
-}
-
-void	Character::printInventory(void) const
-{
-	for (int i = 0; i < Character::_inventory_size; i++)
-	{
-		if (this->_inventory[i])
-			std::cout << i << ": " << this->_inventory[i] << std::endl;
-		else
-			std::cout << i << ": Empty\n";
-	}
+	return (this->name);
 }

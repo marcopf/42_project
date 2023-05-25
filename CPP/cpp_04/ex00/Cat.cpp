@@ -2,22 +2,27 @@
 
 Cat::Cat(void)
 {
-	this->type = "Cat";
-	std::cout << "Default Cat\n";
+	this->_type = "Cat";
+	std::cout << "cat is born!\n";
 }
 
-Cat::Cat(Cat const &src)
+Cat::Cat(const Cat& other)
 {
-	std::cout << "Copy Cat\n";
-	*this = src;
+	std::cout << "Cat is being copied!\n";
+	*this = other;
 }
 
-Cat::~Cat(void)
+Cat::~Cat()
 {
-	std::cout << "Destructor Cat\n";
+	std::cout << "Cat " << this->_type << " is died :(\n";
 }
 
-void	Cat::makeSound(void) const
+void	Cat::makeSound(void)const
 {
-	std::cout << "* MeOw NoIsEs *\n";
+	std::cout << "MEAOWWWWW!!\n";
+}
+
+const std::string	&Cat::getType(void) const
+{
+	return (this->_type);
 }

@@ -2,37 +2,42 @@
 
 Cat::Cat(void)
 {
-	this->type = "Cat";
-	this->brain = new Brain();
-	std::cout << "Default Cat\n";
+	this->_type = "Cat";
+	std::cout << "cat is born!\n";
+	this->_brain = new Brain();
 }
 
-Cat::Cat(Cat const &src)
+Cat::Cat(const Cat& other)
 {
-	std::cout << "Copy Cat\n";
-	*this = src;
+	std::cout << "Cat is being copied!\n";
+	*this = other;
+	delete this->_brain;
 }
 
-Cat::~Cat(void)
+Cat	&Cat::operator=(const Cat &other)
 {
-	delete this->brain;
-	std::cout << "Destructor Cat\n";
+	std::cout << "a Cat is being copy assigned\n";
+	this->type = other.type;
+	this->_brain = new Brain();
+	return (*this);
 }
 
-Cat	&Cat::operator=(Cat const &other)
+Cat::~Cat()
 {
-	std::cout << "Assignement operator\n";
-	this->type = other.getType();
-	this->brain = other.getBrain();
-	return *this;
+	delete this->_brain;
+	std::cout << "Cat " << this->_type << " is died :(\n";
 }
 
-void	Cat::makeSound(void) const
+void	Cat::makeSound(void)const
 {
-	std::cout << "* MeOw NoIsEs *\n";
+	std::cout << "MEAOWWWWW!!\n" << this->_brain->ideas[10];
 }
 
-Brain	*Cat::getBrain(void) const
+const std::string	&Cat::getType(void) const
 {
-	return (this->brain);
+	return (this->_type);
+}
+Brain	*Cat::getBrain()const
+{
+	return (this->_brain);
 }

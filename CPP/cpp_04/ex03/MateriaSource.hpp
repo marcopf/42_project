@@ -1,24 +1,21 @@
 #ifndef MATERIASOURCE_HPP
 # define MATERIASOURCE_HPP
 
-# include <iostream>
-# include "IMateriaSource.hpp"
-# include "AMateria.hpp"
+#include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
-class MateriaSource: public IMateriaSource
+class MateriaSource : public IMateriaSource
 {
+private:
+	AMateria	*inventory[4];
 public:
 	MateriaSource(void);
-	MateriaSource(const MateriaSource &src);
-	~MateriaSource(void);
-	MateriaSource	&operator=(const MateriaSource &other);
-	virtual void		learnMateria(AMateria *materia_to_learn);
-	virtual AMateria	*createMateria(std::string const & type);
-	void			printMaterias(void) const;
-private:
-	const static int	_materias_size = 4;
-	AMateria		*_materias[MateriaSource::_materias_size];
-	int				_number_learned;
+	MateriaSource(std::string const &name);
+	MateriaSource(const MateriaSource &other);
+	const MateriaSource	&operator=(const MateriaSource &other);
+	~MateriaSource();
+	virtual void learnMateria(AMateria*);
+	virtual AMateria* createMateria(std::string const & type);
 };
 
 #endif

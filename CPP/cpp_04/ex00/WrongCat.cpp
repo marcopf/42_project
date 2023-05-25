@@ -2,22 +2,27 @@
 
 WrongCat::WrongCat(void)
 {
-	this->type = "WrongCat";
-	std::cout << "Default WrongCat\n";
+	this->_type = "WrongCat";
+	std::cout << "WrongCat is born!\n";
 }
 
-WrongCat::WrongCat(WrongCat const &src)
+WrongCat::WrongCat(const WrongCat& other)
 {
-	std::cout << "Copy WrongCat\n";
-	*this = src;
+	std::cout << "WrongCat is being copied!\n";
+	*this = other;
 }
 
-WrongCat::~WrongCat(void)
+WrongCat::~WrongCat()
 {
-	std::cout << "Destructor WrongCat\n";
+	std::cout << "WrongCat " << this->_type << " is died :(\n";
 }
 
-void	WrongCat::makeSound(void) const
+void	WrongCat::makeSound(void)const
 {
-	std::cout << "Wrong Meow\n";
+	std::cout << "WRONG MEAOWWWWW!!\n";
+}
+
+const std::string	&WrongCat::getType(void) const
+{
+	return (this->_type);
 }

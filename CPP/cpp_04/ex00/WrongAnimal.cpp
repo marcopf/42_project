@@ -5,7 +5,7 @@ WrongAnimal::WrongAnimal(void): type("")
 	std::cout << "Default WrongAnimal\n";
 }
 
-WrongAnimal::WrongAnimal(WrongAnimal const &src)
+WrongAnimal::WrongAnimal(WrongAnimal const & src)
 {
 	std::cout << "Copy WrongAnimal\n";
 	*this = src;
@@ -25,7 +25,7 @@ WrongAnimal	&WrongAnimal::operator=(WrongAnimal const &other)
 
 void	WrongAnimal::makeSound(void) const
 {
-	std::cout << "Wrong Sound\n";
+	std::cout << "WrongAnimal SOUND\n";
 }
 
 const std::string	&WrongAnimal::getType(void) const

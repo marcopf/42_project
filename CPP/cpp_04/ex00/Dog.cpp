@@ -2,27 +2,23 @@
 
 Dog::Dog(void)
 {
-	this->_type = "Dog";
-	std::cout << "dog is born!\n";
+	this->type = "Dog";
+	std::cout << "Default Dog\n";
 }
 
-Dog::Dog(const Dog& other)
+Dog::Dog(Dog const &src)
 {
-	std::cout << "Dog is being copied!\n";
-	*this = other;
+	std::cout << "Copy Dog\n";
+	*this = src;
 }
 
-Dog::~Dog()
+Dog::~Dog(void)
 {
-	std::cout << "Dog " << this->_type << " is died :(\n";
+	std::cout << "Destructor Dog\n";
 }
 
-void		Dog::makeSound(void)const
-{
-	std::cout << "WOFF WOFF!!\n";
-}
 
-const std::string	&Dog::getType(void) const
+void	Dog::makeSound(void) const
 {
-	return (this->_type);
+	std::cout << "Wouf\n";
 }

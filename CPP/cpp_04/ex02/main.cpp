@@ -3,34 +3,34 @@
 #include "Cat.hpp"
 #include "Brain.hpp"
 
-#define ANIMALS 8
+#define AANIMALS 8
 
 int	main(void)
 {
-	Animal	*animals[ANIMALS];
+	AAnimal	*Aanimals[AANIMALS];
 	Brain	*brain1;
 
-	for (int i = 0; i < ANIMALS; i++)
+	for (int i = 0; i < AANIMALS; i++)
 	{
-		if (i < ANIMALS / 2)
-			animals[i] = new Dog();
+		if (i < AANIMALS / 2)
+			Aanimals[i] = new Dog();
 		else
-			animals[i] = new Cat();
-		std::cout << animals[i]->getType() << std::endl;
+			Aanimals[i] = new Cat();
+		std::cout << Aanimals[i]->getType() << std::endl;
 	}
 
-	brain1 = animals[7]->getBrain();
+	brain1 = Aanimals[7]->getBrain();
 	brain1->ideas[0] = "I'm hungry";
 	brain1->ideas[1] = "That's a strange idea I'm having";
 	brain1->ideas[2] = "Ball!!!!!";
 	brain1->ideas[3] = "Mum";
-	std::cout << animals[7]->getBrain()->ideas[0] << std::endl;
+	std::cout << Aanimals[7]->getBrain()->ideas[0] << std::endl;
 
-	*(animals[5]) = *(animals[7]);
-	std::cout << animals[5]->getBrain()->ideas[2] << std::endl;
+	*(Aanimals[5]) = *(Aanimals[7]);
+	std::cout << Aanimals[5]->getBrain()->ideas[2] << std::endl;
 
-	for (int i = 0; i < ANIMALS; i++)
-		delete animals[i];
+	for (int i = 0; i < AANIMALS; i++)
+		delete Aanimals[i];
 }*/
 
 #include "Cat.hpp"
@@ -46,13 +46,12 @@ int	main(void)
 int main()
 {
 	std::cout << RED << "**** Constructor ****" << NONE << std::endl;
-	Animal* meta = new Animal();
 	Dog *j = new Dog();
 	Cat *cat = new Cat();
 	WrongAnimal* evilAldo = new WrongAnimal();
 	WrongAnimal* evilCat = new WrongCat();
 	int n = 10;
-	Animal *array[n];
+	AAnimal *array[n];
 	std::cout << std::endl << "**** Constructor ****" << std::endl << std::endl;
 	for(int k = 0; k < n; k++)
 	{
@@ -70,7 +69,6 @@ int main()
 	std::cout << GREEN << "**** Sounds ****  " << NONE << std::endl;
 	cat->makeSound();
 	j->makeSound();
-	meta->makeSound();
 	evilAldo->makeSound();
 	evilCat->makeSound();
 
@@ -100,7 +98,6 @@ int main()
 	for (int i = 0; i < n; i++)
 		delete array[n];
 	
-	delete meta;
 	delete j;
 	delete cat;
 	delete evilAldo;

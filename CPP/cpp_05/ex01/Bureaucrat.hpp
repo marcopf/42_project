@@ -12,8 +12,6 @@ class Bureaucrat
 private:
 	const std::string	name;
 	int					grade;
-	const int			GradeTooHighException;
-	const int			GradeTooLowException;
 
 public:
 	//functions
@@ -25,7 +23,6 @@ public:
 	void				decrement_grade(void);
 
 	//operator overload
-	friend std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bur);
 	Bureaucrat			&operator=(const Bureaucrat &bur);
 
 	//constructors
@@ -33,6 +30,24 @@ public:
 	Bureaucrat(void);
 	Bureaucrat(const Bureaucrat &bur);
 	~Bureaucrat();
+public:
+
+	class GradeTooHighException : public std::exception
+	{
+		virtual const char *what()const throw()
+		{
+			return ("Error: grade to high");
+		}
+	};
+	class GradeTooLowException : public std::exception
+	{
+		virtual const char *what()const throw()
+		{
+			return ("Error: grade to low");
+		}
+	};
 };
+
+std::ostream	&operator<<(std::ostream &os, const Bureaucrat &bur);
 
 #endif

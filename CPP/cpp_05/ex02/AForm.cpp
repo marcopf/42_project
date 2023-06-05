@@ -1,7 +1,7 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-void	Form::sign_form(Bureaucrat &bur)
+void	AForm::sign_form(Bureaucrat &bur)
 {
 	if (!this->isSigned())
 	{
@@ -13,14 +13,14 @@ void	Form::sign_form(Bureaucrat &bur)
 		std::cout << bur.get_name() << " couldn't sign " << this->get_name() << "(already signed)" << std::endl;
 }
 
-void	Form::check_grade(void)const
+void	AForm::check_grade(void)const
 {
 	try
 	{
 		if (this->get_grade_to_execute() > 150 || this->get_grade_to_sign() > 150)
-			throw Form::GradeTooLowException();
+			throw AForm::GradeTooLowException();
 		if (this->get_grade_to_execute() < 1 || this->get_grade_to_sign() < 1)
-			throw Form::GradeTooHighException();
+			throw AForm::GradeTooHighException();
 	}
 	catch (std::exception &e)
 	{
@@ -29,27 +29,27 @@ void	Form::check_grade(void)const
 }
 
 
-std::string	Form::get_name(void)const
+std::string	AForm::get_name(void)const
 {
 	return (this->name);
 }
 
-int 		Form::get_grade_to_sign(void)const
+int 		AForm::get_grade_to_sign(void)const
 {
 	return (this->grade_to_sign);
 }
 
-int 		Form::get_grade_to_execute(void)const
+int 		AForm::get_grade_to_execute(void)const
 {
 	return (this->grade_to_execute);
 }
 
-bool 		Form::isSigned(void)const
+bool 		AForm::isSigned(void)const
 {
 	return (this->is_signed);
 }
 
-void	Form::beSigned(Bureaucrat &bur)
+void	AForm::beSigned(Bureaucrat &bur)
 {
 	if (this->grade_to_sign < bur.get_grade())
 	{
@@ -59,34 +59,34 @@ void	Form::beSigned(Bureaucrat &bur)
 	sign_form(bur);
 }
 
-Form	&Form::operator=(const Form &other)
+AForm	&AForm::operator=(const AForm &other)
 {
 	this->is_signed = other.is_signed;
 	return (*this);
 }
 
-std::ostream	&operator<<(std::ostream &os, const Form &other)
+std::ostream	&operator<<(std::ostream &os, const AForm &other)
 {
 	os << other.get_name() << ", grade to sign: " << other.get_grade_to_sign() << ", grade to execute: " << other.get_grade_to_execute() << std::endl;
 	return (os);
 }
 
-Form::Form(std::string name, int grade_to_sign, int grade_to_execute) : name(name), grade_to_sign(grade_to_sign), grade_to_execute(grade_to_execute)
+AForm::AForm(std::string name, int grade_to_sign, int grade_to_execute) : name(name), grade_to_sign(grade_to_sign), grade_to_execute(grade_to_execute)
 {
 	check_grade();
 	this->is_signed = false;
 }
 
-Form::Form(void) : name(""), grade_to_sign(150), grade_to_execute(150)
+AForm::AForm(void) : name(""), grade_to_sign(150), grade_to_execute(150)
 {
 	this->is_signed = false;
 }
 
-Form::Form(const Form &other) : name(other.name), grade_to_sign(other.grade_to_sign), grade_to_execute(other.grade_to_execute)
+AForm::AForm(const AForm &other) : name(other.name), grade_to_sign(other.grade_to_sign), grade_to_execute(other.grade_to_execute)
 {
 	this->is_signed = other.is_signed;
 }
 
-Form::~Form()
+AForm::~AForm()
 {
 }

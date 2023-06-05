@@ -1,4 +1,4 @@
-NAME	= claptrap
+NAME	= test
 HEADER	= ${NAME:.a=.h}
 SRCS	=	$(wildcard *.cpp)
 OBJS	= ${SRCS:.cpp=.o}
@@ -8,8 +8,8 @@ OPTIONS	= -c
 CC		= g++
 RM		= rm -f
 
-.o:.cpp
-	$(CC) $(FLAGS) -std=c++98 -c $< -o $@
+%.o:%.cpp
+	$(CC) $(FLAGS) -std=c++98 -c $<
 
 all: ${NAME}
 

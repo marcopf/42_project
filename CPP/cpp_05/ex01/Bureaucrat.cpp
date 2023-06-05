@@ -3,16 +3,10 @@
 
 void	Bureaucrat::signForm(Form &form)
 {
-	try
+	if (form.get_grade_to_sign() < this->get_grade())
 	{
-		if (form.get_grade_to_sign() < this->get_grade())
-			throw (Bureaucrat::GradeTooLowException);
-	}
-	catch (int e)
-	{
-		if (e == Bureaucrat::GradeTooLowException)
-			std::cout << this->get_name() << " couldn't sign " << form.get_name() << "(grade to low)" << std::endl;
-			return ;
+		std::cout << this->get_name() << " couldn't sign " << form.get_name() << " grade too low..." << std::endl;
+		return ;
 	}
 	form.sign_form(*this);
 }
@@ -32,17 +26,14 @@ void 		Bureaucrat::set_grade(int grade)
 	try
 	{
 		if (grade < 1)
-			throw (-1);
+			throw (Bureaucrat::GradeTooHighException());
 		else if (grade > 150)
-			throw (-2);
+			throw (Bureaucrat::GradeTooLowException());
 		this->grade = grade;
 	}
-	catch (int e)
+	catch (std::exception &e)
 	{
-		if (e == Bureaucrat::GradeTooLowException)
-			std::cerr << "Error: grade too low..." << std::endl;
-		else if (e == Bureaucrat::GradeTooHighException)
-			std::cerr << "Error: grade too high..." << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -69,19 +60,19 @@ Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &bur)
 	return (*this);
 }
 
-Bureaucrat::Bureaucrat(void) : name (""), GradeTooHighException(-1), GradeTooLowException(-2)
+Bureaucrat::Bureaucrat(void) : name ("")
 {
 	std::cout << "BUREAUCRAT default built" << std::endl;
 	this->grade = 150;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), GradeTooHighException(-1), GradeTooLowException(-2)
+Bureaucrat::Bureaucrat(std::string name, int grade) : name(name)
 {
 	std::cout << "BUREAUCRAT built" << std::endl;
 	set_grade(grade);
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &bur) : GradeTooHighException(-1), GradeTooLowException(-2)
+Bureaucrat::Bureaucrat(const Bureaucrat &bur)
 {
 	std::cout << "BUREAUCRAT built from another" << std::endl;
 	*this = bur;

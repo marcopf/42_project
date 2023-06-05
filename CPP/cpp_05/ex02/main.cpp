@@ -1,35 +1,31 @@
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
-	Bureaucrat sig1("marco", 110);
-	Form		f1("tasse", 10, 5), f2("allegato3", 110, 30);
+	Bureaucrat	erMeglio("erMeglio", 1), nuovo("nuovo", 137);
+	AForm	*form;
 
-	std::cout << sig1;
-	for (int i = 0; i < 30; i++)
-	{
-		sig1.increment_grade();
-	}
-	std::cout << "incrementing grade\n";
-	std::cout << sig1;
-	for (int i = 0; i < 70; i++)
-	{
-		sig1.decrement_grade();
-	}
-	std::cout << "decrementing grade\n";
-	std::cout << sig1;
-	sig1.signForm(f2);
-	f1.beSigned(sig1);
-	sig1.decrement_grade();
-	for (int i = 0; i < 149; i++)
-	{
-		sig1.increment_grade();
-	}
-	std::cout << sig1;
-	f1.beSigned(sig1);
-	f1.beSigned(sig1);
-	sig1.signForm(f2);
-	sig1.increment_grade();
-
+	form = new RobotomyRequestForm("bender");
+	form->execute(erMeglio);
+	delete form;
+	form = new ShrubberyCreationForm("marco");
+	form->execute(erMeglio);
+	delete form;
+	form = new PresidentialPardonForm("luigi");
+	form->execute(erMeglio);
+	delete form;
+	std::cout << "\n\n";
+	form = new RobotomyRequestForm("bender");
+	form->execute(nuovo);
+	delete form;
+	form = new ShrubberyCreationForm("marco");
+	form->execute(nuovo);
+	delete form;
+	form = new PresidentialPardonForm("luigi");
+	form->execute(nuovo);
+	delete form;
 }

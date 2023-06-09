@@ -11,6 +11,7 @@ private:
 	std::vector<int> vect;
 	unsigned int N;
 public:
+	void	addRange(int start, int end);
 	void	addNumber(int val);
 	int		shortestSpan();
 	int		longestSpan();

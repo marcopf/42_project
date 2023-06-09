@@ -1,4 +1,5 @@
 #include "Span.hpp"
+#include <cstdlib>
 
 Span::Span(void) : N(0)
 {
@@ -34,35 +35,66 @@ void	Span::addNumber(int val)
 
 int		Span::shortestSpan()
 {
-	std::vector<int>::iterator it;
-	int val = 0, temp = 0;
+	int val;
 
 	if (this->vect.size() < 2)
-		return (val);
-	val = this->vect[0] - this->vect[1];
+		return (0);
+	val = abs(this->vect[0] - this->vect[1]);
 	for (unsigned int i = 0; i < this->vect.size() - 1; i++)
 	{
-		temp = this->vect[i] - this->vect[i + 1];
-		if (temp < val)
-			val = this->vect[i] - this->vect[i + 1];
+		if (abs(this->vect[i] - this->vect[i + 1]) <= val)
+			val = abs(this->vect[i] - this->vect[i + 1]);
 	}
 	return (val);
 }
 
 int		Span::longestSpan()
 {
-	std::vector<int>::iterator it;
-	int val = 0;
+	int val;
 
 	if (this->vect.size() < 2)
-		return (val);
-	val = this->vect[0] - this->vect[1];
+		return (0);
+	val = abs(this->vect[0] - this->vect[1]);
 	for (unsigned int i = 0; i < this->vect.size() - 1; i++)
 	{
-		if (this->vect[i] - this->vect[i + 1] > val)
-			val = this->vect[i] - this->vect[i + 1];
+		if (abs(this->vect[i] - this->vect[i + 1]) >= val)
+			val = abs(this->vect[i] - this->vect[i + 1]);
 	}
 	return (val);
+}
+
+void	Span::addRange(int start, int end)
+{
+	if (start < end)
+	{
+		while (start < end)
+		{
+			try
+			{
+				addNumber(start++);
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
+			
+		}
+	}
+	else
+	{
+		while (end < start)
+		{
+			try
+			{
+				addNumber(end++);
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
+			
+		}
+	}
 }
 
 Span::~Span()

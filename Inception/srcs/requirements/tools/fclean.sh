@@ -9,7 +9,9 @@ echo "cleaning hosts..."
 sed '/mpaterno.42.fr/d' /etc/hosts > temp && sudo mv temp /etc/hosts
 if [ "$(command -v docker)" != "" ] && [ "$OSTYPE" == "linux-gnu" ]
 then
-  sudo apt remove docker-ce -y
+  dpkg -l | grep -i docker
+  sudo apt-get purge -y docker-engine docker docker.io docker-ce docker-ce-cli docker-compose-plugin
+  sudo apt-get autoremove -y --purge docker-engine docker docker.io docker-ce docker-compose-plugin
 fi
 if [ "$(command -v docker-compose)" != "" ] && [ "$OSTYPE" == "linux-gnu" ]
 then

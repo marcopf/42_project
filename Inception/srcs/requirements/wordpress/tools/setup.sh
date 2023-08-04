@@ -11,7 +11,7 @@ php wp-cli.phar core install --url=$DOMAIN_NAME/ --title=$WORDPRESS_TITLE --admi
 php wp-cli.phar user create $WORDPRESS_USER_USERNAME $WORDPRESS_USER_EMAIL --role=author --user_pass=$WORDPRESS_USER_PASSWORD --allow-root
 php wp-cli.phar theme install twentytwentytwo --activate --allow-root
 php wp-cli.phar post create --post_title=Inception42 --post_status=publish
-php wp-cli.phar option update blogdescription "42 project Inceptio website"
+php wp-cli.phar option update blogdescription "42 project Inception website"
 sed "s/127.0.0.1:9000/0.0.0.0:9000/1" -i -r /etc/php81/php-fpm.d/www.conf
 chmod -R 777 .
 /usr/sbin/php-fpm81 -F

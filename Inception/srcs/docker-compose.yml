@@ -1,0 +1,47 @@
+version: "3.8"
+networks: 
+  inception_42:
+#########################################
+services:
+########## MARIADB_CONTAINER ############
+  mariadb:
+    build:   ./requirements/mariadb
+    env_file: conf.env
+    restart:  always
+    volumes:
+       - mariadb_vol:/var/lib/mysql
+    networks:
+      - inception_42
+    ports:
+      - 3306:3306
+######### WORDPRESS_CONTAINER ###########
+  wordpress:
+    build:    ./requirements/wordpress    
+    env_file: conf.env
+    restart:  always
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_vol:/var/www/html
+    networks:
+      - inception_42
+    ports:
+      - 9000:9000
+########### NGINX_CONTAINER #############
+  nginx:
+    build:    ./requirements/nginx
+    env_file: conf.env
+    restart:  always
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress_vol:/var/www/html
+    networks: 
+      - inception_42
+    ports:
+      - 443:443
+#########################################
+volumes:
+
+  mariadb_vol:
+  wordpress_vol:

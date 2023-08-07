@@ -1,3 +1,5 @@
+sudo mkdir -p /home/mpaterno/data/mariadb_vol /home/mpaterno/data/wordpress_vol
+
 if [ "$(command -v docker)" == "" ]
 then
   sudo apt-get update -y

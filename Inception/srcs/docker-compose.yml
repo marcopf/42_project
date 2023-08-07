@@ -44,4 +44,14 @@ services:
 volumes:
 
   mariadb_vol:
+    driver: local
+    driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: '/home/mpaterno/data/mariadb_vol'
   wordpress_vol:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: '/home/mpaterno/data/wordpress_vol'

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ENV_FILE="/etc/.env"
+PGPASS_FILE="/etc/.pgpass"
+
+source "$ENV_FILE"
+
+echo "$DJANGO_DB_HOST:$DJANGO_DB_PORT:$DJANGO_DB_NAME:$DJANGO_DB_USER:$DJANGO_DB_PASSWORD" > "$PGPASS_FILE"
+chmod 600 "$PGPASS_FILE"
+
